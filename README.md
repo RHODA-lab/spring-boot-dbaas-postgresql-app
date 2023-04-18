@@ -3,24 +3,16 @@ Tested with:
 * OpenShift
 * DBaaS
 
-## Building/deploying all modules
+## Building/deploying module
 ```shell
-# build 
-./mvnw clean package
+$ ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=quay.io/<someaccount>/spring-postgresql-demo:v0.0.1
 
+$ podman push quay.io/<someaccount>/spring-postgresql-demo:v0.0.1
 
-# build the images 
-
- docker build -t spring-postgresql-demo .
- docker image tag spring-postgresql-demo quay.io/<org>/spring-postgresql-demo:v0.0.1
- 
-# push the images to your docker image registry
-docker push  quay.io/<org>/spring-postgresql-demo:v0.0.1         
-
+# edit/update the deployment yaml for your customized image
 # deploy the application to a OpenShift cluster
-oc apply -f k8s/deploy-postgresql-app.yaml 
+$ oc apply -f k8s/deploy-postgresql-app.yaml 
 ```
-
 
 ## Service Binding
 
